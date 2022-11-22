@@ -87,7 +87,22 @@ def command(conf, args):
     rp = Repository(conf)
 
     if citekeyOrTag is None:
-        ui.message(', '.join(color.dye_out(t, 'tag') for t in sorted(rp.get_tags())))
+        # ui.message(', '.join(color.dye_out(t, 'tag') for t in sorted(rp.get_tags())))
+
+        last_letter = 'A'
+        new_letter = True
+        for t in sorted(rp.get_tags()):
+            if t != "":
+                while not t.startswith(last_letter) and ord(last_letter) < ord('Z'):
+                    last_letter=chr(ord(last_letter) + 1)
+                    new_letter = True
+                if new_letter:
+                    if last_letter != 'A':
+                        print('\n')
+                    print(last_letter)
+                    new_letter = False
+                ui.message(''.join(color.dye_out(t, 'tag')), end = ', ')
+        print()
     else:
         not_citekey = False
         try:
