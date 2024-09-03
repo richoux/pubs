@@ -19,6 +19,11 @@ is supposed to do: help us do science, so now we are mostly doing that.
 
 ## Installation
 
+Special Richoux style:
+  ```shell
+  pip3 install --upgrade git+https://github.com/richoux/pubs --break-system-packages
+  ```
+
 You can install the latest stable version of `pubs` through Pypi, with:
   ```shell
   pip install pubs
