@@ -1,12 +1,18 @@
 # Changelog
 
 
-## Current master
+## Current main
 
-[Full Changelog](https://github.com/pubs/pubs/compare/v0.8.3...master)
+[Full Changelog](https://github.com/pubs/pubs/compare/v0.9.0...master)
+
+
+## [v0.9.0](https://github.com/pubs/pubs/compare/v0.8.3...v0.9.0) (2022-04-17)
 
 ### Implemented enhancements
 
+- Citekey can be automatically generated (disabled by default) ([#209](https://github.com/pubs/pubs/pull/209) by [Jonáš Kulhánek](https://github.com/jkulhanek))
+- Possibily to exclude bibtext field when adding references ([#273](https://github.com/pubs/pubs/pull/273) by [Mitsuhiro Nakamura](https://github.com/m15a))
+- Less ambiguous tag display for tags with space ([#265](https://github.com/pubs/pubs/pull/265) by [Florian Richoux](https://github.com/richoux))
 - Migration from Travis CI to Github actions ([#260](https://github.com/pubs/pubs/pull/260))
 - Allow passing named arguments to custom commands ([#241](https://github.com/pubs/pubs/pull/241) by [jkulhanek](https://github.com/jkulhanek))
 - Added support for non-standard bibtex types, e.g. @collection, @software, etc. ([#226](https://github.com/pubs/pubs/pull/226))
@@ -16,6 +22,7 @@
 
 ### Fixed bugs
 
+- ISBN service not available anymore; now displays an appropriate error.
 - Fixed collision when entry uses `type` field ([#252](https://github.com/pubs/pubs/pull/252))
 - Note on comma in alias descriptions ([#240](https://github.com/pubs/pubs/pull/240) [StanczakDominik](https://github.com/StanczakDominik))
 - Note path correctly expand user '~' ([#250](https://github.com/pubs/pubs/pull/250))

@@ -78,9 +78,12 @@ def bibentry_from_api(args, ui, raw=False):
         if args.doi is not None:
             return apis.get_bibentry_from_api(args.doi, 'doi', ui=ui, raw=raw)
         elif args.isbn is not None:
+            ui.error('adding with ISBN relied on the OttoBib (https://www.ottobib.com/) service, that is no longer available. '
+                     'While we work on a new solution, you can manually generate bibtex from https://zbib.org/. '
+                     'If you know a good scriptable website/API, you tell us at https://github.com/pubs/pubs/issues/276.')
+            ui.exit(1)
             return apis.get_bibentry_from_api(args.isbn, 'isbn', ui=ui, raw=raw)
             # TODO distinguish between cases, offer to open the error page in a webbrowser.
-            # TODO offer to confirm/change citekey
         elif args.arxiv is not None:
             return apis.get_bibentry_from_api(args.arxiv, 'arxiv', ui=ui, raw=raw)
     except apis.ReferenceNotFoundError as e:
@@ -116,11 +119,17 @@ def command(conf, args):
         if bibentry is None:
             ui.error('invalid bibfile {}.'.format(bibfile))
 
+    # exclude bibtex fields if specified
+    utils.remove_bibtex_fields(bibentry, conf['main']['exclude_bibtex_fields'])
+
     # citekey
 
     citekey = args.citekey
     if citekey is None:
-        base_key = bibstruct.extract_citekey(bibentry)
+        if conf['main']['normalize_citekey']:
+            base_key = bibstruct.generate_citekey(bibentry, conf['main']['citekey_format'])
+        else:
+            base_key = bibstruct.extract_citekey(bibentry)
         citekey = rp.unique_citekey(base_key, bibentry)
     elif citekey in rp:
         ui.error('citekey already exist {}.'.format(citekey))
